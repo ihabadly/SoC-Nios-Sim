@@ -11,12 +11,12 @@ These examples use [ModelSim&reg; and Quartus&reg; Prime from Intel FPGA](http:/
 
     ```sh
     $ cd projects
-    $ git clone https://github.com/ihabadly/soc-nios.git
+    $ git clone https://github.com/ihabadly/soc-nios-sim.git
     ```
 2. Use Visual Studio Code (VSC) to edit and view the design files:
 
     ```sh
-    $ cd soc-nios
+    $ cd soc-nios-sim
     $ code .
     ```
     Click on the soc_nios.vhd file in the left pane to view its contents.
@@ -115,8 +115,37 @@ These examples use [ModelSim&reg; and Quartus&reg; Prime from Intel FPGA](http:/
     - In the Project template, select the "Hello World" template and click Finish
     - In the Project Explorer view, expand "hello_world". Double-click "hello_world.c" to view the source code
     - To build the project, select "hello_world", from the Menu, choose Project -> Build Project
+    - In the Project Explorer, select "hello_world". Right-click and choose Make Targets -> Build -> mem_init_generate then click Build
     - To run the C program, select "hello_world", from the Menu, choose Run -> Run As -> Nios II Hardware
     - In the Run Configurations dialog box, click the Target Connection tab, click Refresh Connections, then click Run
     - The Nios II SBT for Eclipse downloads the program to the FPGA on the target board and executes the code
     - The message “Hello from Nios II!” displays in the Nios II Console view
 
+7. To simulate Nios&reg; II:
+    
+    - From the VSC View menu, choose Terminal, in the VCS Terminal, run:
+
+    ```sh
+    $ cd .\nios_system\simulation\mentor
+    $ copy ../../../software/hello_world/mem_init/nios_system_onchip_memory2_0.hex ../submodules 
+    $ vsim -do msim_setup.tcl
+    ```
+    
+    - In Modelsim:
+    
+
+    ```sh
+    ModelSim> dev_com
+    ModelSim> com
+    ModelSim> elab
+    VSIM> force -freeze sim:/nios_system/clk_clk 1 0, 0 {10000 ps} -r 20000
+    VSIM> force -freeze sim:/nios_system/reset_reset_n 0 0
+    VSIM> force -freeze sim:/nios_system/reset_reset_n 1 70000
+    VSIM> run 5 ms
+    ```
+    
+    - Check in ModelSim Transcript Window:
+
+    ```sh
+    "Hello from Nios II!"
+    ```
