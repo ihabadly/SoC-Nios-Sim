@@ -59,7 +59,7 @@ These examples use [ModelSim&reg; and Quartus&reg; Prime from Intel FPGA](http:/
     - Click: Finish
     - In the save dialog box, browse to the "soc-nios" folder then click Open, and name the design as "nios_system.qsys" and click Save
     - Click: Close
-    - When prompted to Generate now?, click Yes, then click Generate
+    - When prompted to Generate now?, click Yes, under Create Simulation Model, Select VHDL then click Generate
     - Click: Finish
 
 5.  Use the Quartus&reg; Prime Tool to synthesis the processor design:
@@ -131,7 +131,7 @@ These examples use [ModelSim&reg; and Quartus&reg; Prime from Intel FPGA](http:/
     $ vsim -do msim_setup.tcl
     ```
     
-    - In Modelsim:
+    - In the Modelsim Transcript Window:
     
 
     ```sh
